@@ -1,0 +1,6 @@
+# Design-review workspace (not part of the runtime)
+.impeccable/
+
+# OS junk
+Thumbs.db
+.DS_Store
