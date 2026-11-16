@@ -119,10 +119,10 @@ body.page-week main{width:100%;max-width:960px;margin:0 auto}
   .chart-donut{max-width:100%}
   .donut-wrap{max-width:220px}
   .donut-center b{font-size:17px}
-  .cal td{height:40px;padding:4px 1px 8px}
+  .cal td{height:44px;padding:4px 1px 8px}
   .cal td.is-today{padding-top:3px}
-  .cal th{padding-bottom:5px;font-size:8px;letter-spacing:.08em}
-  .cal .cal-d{font-size:9px}
-  .cal .cal-amt{font-size:9px;margin-top:1px}
+  .cal th{padding-bottom:5px;font-size:10px;letter-spacing:.1em}
+  .cal .cal-d{font-size:10px}
+  .cal .cal-amt{font-size:10px;margin-top:1px}
   .cal .cal-bar{left:2px;right:2px;bottom:2px}
 }

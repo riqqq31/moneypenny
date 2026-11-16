@@ -279,7 +279,7 @@ Breakpoints, in use:
 - **720–1023px:** the line chart spans the board; the donut and calendar sit side by side at 210–270px plus the remaining width.
 - **1024–1279px:** the line spans the board, the donut turns ring-plus-legend at 240px + 1fr, and the calendar stacks beneath.
 - **1280px and up:** the line spans the board; the donut takes 230–290px with the calendar beside it.
-- **719px and below:** all three charts stack; the calendar keeps 40px cells and 9px compact amounts.
+- **719px and below:** all three charts stack; the calendar keeps 44px cells and 10px compact amounts.
 - **720px and up:** amount, note, and date share one row; the six chips return to a single wrapping flex row.
 
 ## Elevation & Depth
@@ -313,7 +313,7 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 ### Inputs / Fields
 - **Style:** No box and no fill. A single 1.5px Chalk Control underline under an Oswald 11px tracked label. The amount is the hero field: Oswald 26px tabular figures on desktop, `clamp(28px, 8vw, 36px)` on phones, with a 15px `Rp` prefix on the baseline. Every other field sets Source Sans 3 16px.
 - **Amount entry:** Digits group live into `id-ID` thousands as they are typed — `25000` reads `25.000` — and the caret stays on the same digit, so the field matches the price board and the ledger before submission.
-- **Focus:** The underline turns chalk and the `Rp` prefix brightens from dim to chalk; the caret is amber and the browser outline is removed because the underline carries focus.
+- **Focus:** The underline turns chalk, the `Rp` prefix brightens from dim to chalk, and the field takes the same 2px amber ring at a 3px offset as every other control, so the keyboard never loses its place in the longest form; the caret is amber.
 - **Error:** A rust-text sentence sits between the grid and the action row, full width, so it is never squeezed beside a button. It occupies no space when empty and is announced with `role="alert"`. The invalid field is marked `aria-invalid`, turns rust-text, is linked through `aria-describedby`, and takes focus. The budget field follows the same pattern with its own error line.
 - **Edit state:** The form takes a 2px chalk left rule and 14px of left padding, and the heading turns chalk, so an edit never looks like a fresh entry.
 - **Date:** Native picker on a `color-scheme: dark` root, so the glyph and panel are drawn dark without a filter; dates cannot exceed today. Note carries a small dim `optional` label instead of an `optional` placeholder.
@@ -375,7 +375,7 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 - **Category donut:** A 220-unit SVG ring (r 74, 24px stroke) split clockwise by category, largest first. Each category keeps a fixed muted pigment — sage, dusty blue, clay, mauve, ochre, stone — so color maps to category and never to slice rank; 2px gaps separate neighbours. The center carries "Rp spent" and the exact total. The legend below is the accessible source of truth: a pigment swatch, the category, the full amount, and the rounded share. Swatch color is decorative reinforcement; the label always carries the meaning.
 - **Calendar:** A real table with a screen-reader caption, Monday-first weeks, and one-letter weekday headers backed by full `aria-label`s. Each day shows its number and a compact `fmtShort` amount; a 2px bar tracks spend against the daily allowance. Days over allowance take rust text and a rust bar; today takes an amber number and a 2px amber top rule; future days dim their number and show no amount. Every cell carries an `sr-only` sentence with the full date, amount, and status. It is static in this version — no selection or drill-down.
 - **Empty state:** When the month has no spending, the three frames are hidden and one sentence takes their place. A blank chart grid is never shown.
-- **Responsive:** The line always spans the board. The donut and calendar pair from 720–1023px and from 1280px up; at 1024–1279px the ring and legend sit side by side with the calendar beneath; below 720px everything stacks. At 320px the calendar keeps roughly 38px of usable cell width with 9px amounts, and the page never scrolls sideways.
+- **Responsive:** The line always spans the board. The donut and calendar pair from 720–1023px and from 1280px up; at 1024–1279px the ring and legend sit side by side with the calendar beneath; below 720px everything stacks. At 320px the calendar keeps roughly 38px of usable cell width with 10px amounts, and the page never scrolls sideways.
 
 ## Accessibility
 
