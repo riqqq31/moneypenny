@@ -69,6 +69,10 @@
 .ramp span{margin-left:8px;align-self:flex-end;font:500 11px/1.4 var(--display);
            letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 
+/* The zone as a line of text, for the widths where the ramp is not drawn. */
+.hp-zone{display:none;font:500 11px/1.4 var(--display);letter-spacing:.14em;
+         text-transform:uppercase;color:var(--dim)}
+
 .hp-note{margin-top:10px;font:400 13px/1.5 var(--text);color:var(--dim)}
 .hp-note b{color:var(--amber);font-weight:600;font-variant-numeric:tabular-nums}
 .hp-note .bad{color:var(--rust-text)}

@@ -9,11 +9,16 @@
   background:var(--board);border-top:1px solid var(--rule);
 }
 .foot-btn{
+  position:relative;
   background:none;border:0;cursor:pointer;color:var(--chalk);
   font:500 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;
   padding:7px 0;border-bottom:1px solid transparent;
   transition:border-color .18s var(--ease),color .18s var(--ease);
 }
+/* The underline hugs the label, so the tap area grows behind it instead of
+   around it: 44px tall without moving the rule or the footer's rhythm. */
+.foot-btn::after{content:"";position:absolute;left:-6px;right:-6px;top:50%;
+                 height:44px;transform:translateY(-50%)}
 .foot-btn:hover{border-bottom-color:var(--chalk)}
 .foot-add{border:1.5px solid var(--chalk);background:rgba(242,240,230,.05);padding:10px 16px;
           min-height:40px;display:inline-flex;align-items:center}

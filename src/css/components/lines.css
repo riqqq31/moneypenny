@@ -26,6 +26,7 @@
 .line.is-regret .l-amt{color:var(--rust-text);text-decoration:line-through;
                        text-decoration-thickness:1.5px}
 .l-edit{
+  position:relative;
   grid-column:6;justify-self:end;
   background:none;border:0;cursor:pointer;color:var(--dim);
   display:inline-flex;align-items:center;justify-content:center;
@@ -33,6 +34,10 @@
   font:500 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;
   border-bottom:1px solid var(--control-line);transition:color .16s var(--ease)
 }
+/* The label stays 32x24; the tap area behind it is 44x44 so the only way into
+   a purchase is not also the smallest thing on the row. */
+.l-edit::after{content:"";position:absolute;left:50%;top:50%;width:44px;height:44px;
+               transform:translate(-50%,-50%)}
 .l-edit:hover{color:var(--chalk);border-bottom-color:var(--chalk)}
 
 .empty{padding:22px 0;font:400 15px/1.5 var(--text);color:var(--dim)}

@@ -36,6 +36,7 @@
         <span id="bar-budget"></span>
       </div>
 
+      <p class="hp-zone" id="hp-zone" aria-hidden="true"></p>
       <div class="ramp" id="ramp" aria-hidden="true"></div>
       <p class="hp-note" id="hp-note"></p>
     </div>
@@ -89,7 +90,7 @@
       <form class="budget-form" id="budget-form" autocomplete="off">
         <label class="field field-amount">
           <span>Budget for <em id="budget-month">this month</em></span>
-          <span class="field-wrap"><i>Rp</i><input name="budget" inputmode="numeric" pattern="[0-9.]*" placeholder="3100000" aria-describedby="budget-error" required></span>
+          <span class="field-wrap"><i>Rp</i><input name="budget" inputmode="numeric" pattern="[0-9.]*" placeholder="e.g. 3.100.000" aria-describedby="budget-error" required></span>
         </label>
         <button class="btn" type="submit">Save budget</button>
       </form>

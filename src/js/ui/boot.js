@@ -10,6 +10,8 @@ import { commit } from '../core/store.js';
  */
 export function boot({ page, title }) {
   document.body.classList.add(`page-${page}`);
+  /* Also on <html> so page-level scroll reserves can key off it. */
+  document.documentElement.classList.add(`page-${page}`);
   document.title = title ? `${title} — ${APP_NAME}` : `${APP_NAME} — monthly budget as hit points`;
 
   document.querySelectorAll('[data-app-name]').forEach((node) => {

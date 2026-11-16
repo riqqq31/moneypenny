@@ -54,6 +54,7 @@ body.page-week main{width:100%;max-width:960px;margin:0 auto}
   .hp-num{font-size:var(--hp-size,clamp(54px,17vw,84px))}
   .board-add{min-height:56px}
   .ramp{display:none}
+  .hp-zone{display:block;margin-top:9px}
   .entry-grid{gap:14px}
   .entry-actions{margin-top:14px;gap:10px}
   .entry-actions .btn.primary{width:100%;min-height:48px}

@@ -1,7 +1,7 @@
 /* Budget HP — monthly budget form, its meta line, and the footer month stamp. */
 
 import { daysInMonth, monthKey, monthLabel, monthShort, todayKey } from '../core/date.js';
-import { fmt, toAmount } from '../core/format.js';
+import { fmt, formatAmountInput, toAmount } from '../core/format.js';
 import { budgetFor, spendInMonth } from '../core/rules.js';
 import { commit, db } from '../core/store.js';
 import { $, announce } from '../ui/dom.js';
@@ -21,6 +21,14 @@ export function renderBudget() {
   if (month) month.textContent = monthLabel(mk);
 
   renderFooterMeta();
+
+  /* The field shows the budget that is actually set, grouped like every other
+     amount on the board. It is left alone while focused so a render cannot
+     overwrite a half-typed number. */
+  const form = $('budget-form');
+  if (form && document.activeElement !== form.budget) {
+    form.budget.value = b === null ? '' : fmt(b);
+  }
 
   const meta = $('budget-meta');
   if (!meta) return;
@@ -51,6 +59,7 @@ export function bindBudgetForm({ afterSave } = {}) {
   const err = $('budget-error');
 
   form.budget.addEventListener('input', () => {
+    formatAmountInput(form.budget);
     form.budget.removeAttribute('aria-invalid');
     err.textContent = '';
   });

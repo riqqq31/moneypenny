@@ -264,7 +264,7 @@ Add is its own view behind `#add`. It carries a Back to board link, then the ent
 
 The form is ordered by what the hand does. On phones the amount takes the full width and leads the block, the category chips follow on their own full-width row, then note and date share a row, then a full-width submit. From 720px up the amount, note, and date sit in one row at `1.1fr 1.7fr .9fr` with the chip row spanning beneath them. The grid uses named areas, so the DOM order never changes between the two layouts.
 
-Page gutters are 40px on desktop and 18px on phones. On the Board and Week, main content reserves 118px at the bottom (108px on phones) for the fixed footer, which keeps Add purchase, Export JSON, and Set budget one tap away. The same reserve is declared as `scroll-padding-bottom` on `html` (118px, 108px under 720px), so a focused control is never scrolled underneath the fixed footer. Add reserves only 52px because its footer is hidden. Vertical rhythm is deliberately uneven: 28–30px between related blocks, 44–54px before a new section. The fixed footer carries a 22px gradient scrim into the board so ledger lines fade rather than collide with it.
+Page gutters are 40px on desktop and 18px on phones. On the Board and Week, main content reserves 118px at the bottom (108px on phones) for the fixed footer, which keeps Add purchase, Export JSON, and Set budget one tap away. The same reserve is declared as `scroll-padding-bottom` on `html` (118px, 108px under 720px), so a focused control is never scrolled underneath the fixed footer. Add has no footer, so it reserves 52px in the page and sets the same 52px as `scroll-padding-bottom` on its `html`. Vertical rhythm is deliberately uneven: 28–30px between related blocks, 44–54px before a new section. The fixed footer carries a 22px gradient scrim into the board so ledger lines fade rather than collide with it.
 
 `viewport-fit=cover` is on, so the header and skip link add `env(safe-area-inset-top)` to their top padding and the footer adds `env(safe-area-inset-bottom)` to its bottom padding. The fixed background attachment is dropped under 720px, where it causes scroll jank on mobile Safari; the radial ground still fills the viewport.
 
@@ -272,7 +272,7 @@ Views are hash routes: `#board` (default), `#add`, `#week`. The back button, ref
 
 Breakpoints, in use:
 - **359px and below:** tighter wordmark, smaller stat values, reduced header gaps, and tighter footer gaps.
-- **719px and below:** stacked header with segmented Month/Week control, phone gutters, compact ledger rows, 40px tag targets. The amount spans the form, chips sit in a 3×2 grid, the submit is full width at 48px, the zone ramp is hidden, and Add hides the footer entirely.
+- **719px and below:** stacked header with segmented Month/Week control, phone gutters, compact ledger rows, 40px tag targets. The amount spans the form, chips sit in a 3×2 grid, the submit is full width at 48px, the zone ramp is hidden and its label moves under the bar as a line of text, and Add hides the footer entirely.
 - **389px and below:** tighter main padding, section margins, and form gaps so the submit still clears the footer on small phones.
 - **Short phones (≤640px tall):** tighter Board CTA spacing so the button clears the fixed footer without shrinking the HP numeral.
 - **1023px / 1024px:** the single-column/mobile mode changes to the two-column desktop board; tabs disappear. Add keeps the Week rail and hides only the Board.
@@ -304,7 +304,7 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 ## Components
 
 ### Buttons
-- **Shape:** Square, 0px radius, 1.5px border, uppercase Oswald 11px with 0.20em tracking, 14px × 22px padding.
+- **Shape:** Square, 0px radius, 1.5px border, uppercase Oswald 11px with 0.20em tracking, 14px × 22px padding, 44px minimum height so a thumb never misses a primary action.
 - **Primary:** Chalk border with a 5% chalk wash; hover raises the wash to 14% and turns the label white.
 - **Quiet:** 36% chalk control border and dim label; hover restores the chalk label and strengthens the border to 55%.
 - **Danger:** 50% rust border and rust-text label; hover adds a 12% rust wash.
@@ -312,7 +312,7 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 
 ### Inputs / Fields
 - **Style:** No box and no fill. A single 1.5px Chalk Control underline under an Oswald 11px tracked label. The amount is the hero field: Oswald 26px tabular figures on desktop, `clamp(28px, 8vw, 36px)` on phones, with a 15px `Rp` prefix on the baseline. Every other field sets Source Sans 3 16px.
-- **Amount entry:** Digits group live into `id-ID` thousands as they are typed — `25000` reads `25.000` — and the caret stays on the same digit, so the field matches the price board and the ledger before submission.
+- **Amount entry:** Digits group live into `id-ID` thousands as they are typed — `25000` reads `25.000` — and the caret stays on the same digit, so the field matches the price board and the ledger before submission. The budget field on the Board holds the budget that is actually set, grouped the same way, and is only rewritten when it is not focused; its placeholder is an example (`e.g. 3.100.000`), never a number that could pass for a stored value.
 - **Focus:** The underline turns chalk, the `Rp` prefix brightens from dim to chalk, and the field takes the same 2px amber ring at a 3px offset as every other control, so the keyboard never loses its place in the longest form; the caret is amber.
 - **Error:** A rust-text sentence sits between the grid and the action row, full width, so it is never squeezed beside a button. It occupies no space when empty and is announced with `role="alert"`. The invalid field is marked `aria-invalid`, turns rust-text, is linked through `aria-describedby`, and takes focus. The budget field follows the same pattern with its own error line.
 - **Edit state:** The form takes a 2px chalk left rule and 14px of left padding, and the heading turns chalk, so an edit never looks like a fresh entry.
@@ -342,7 +342,7 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 - **Footer:** Hidden in this view. The form's own submit is the only primary action.
 
 ### Persistent Footer
-- **Shape:** A fixed full-width band with a 1px top rule and a 22px gradient scrim rising above it. Add purchase is an outlined button at 40px minimum height; Export JSON and Set budget are plain text buttons; the month and day count sit at the right and disappear on phones. Below 360px the action type tightens and the Add padding narrows so all three actions still fit one row.
+- **Shape:** A fixed full-width band with a 1px top rule and a 22px gradient scrim rising above it. Add purchase is an outlined button at 40px minimum height; Export JSON and Set budget are plain text buttons whose label stays put while a 44px tap area grows behind it, so the rule under the label never moves. The month and day count sit at the right and disappear on phones. Below 360px the action type tightens and the Add padding narrows so all three actions still fit one row.
 - **Behavior:** All three stay reachable while the Board or Week scrolls. Set budget returns to the Board, scrolls the budget block into view, and focuses the field. The footer is hidden on Add.
 
 ### Tags
@@ -353,14 +353,14 @@ Horizontal rules stop short of the right edge by design: 6% on the header rule a
 - **Shape:** A 30px band with 1.5px Chalk Rule Strong top and bottom edges and no side borders; a 10px dotted chalk track runs behind the fill.
 - **Fill:** Chalk, with two soft radial highlights that suggest chalk dust. The fill is the HP that remains, so it retreats from the right as spending grows; a 2px amber edge marker with a radial glow sits at the fill's end.
 - **Over budget:** The fill and edge disappear and the entire band becomes a rust diagonal hatch at 34% opacity, with rust labels beneath. No partial fill is shown, because a partial fill would imply remaining money.
-- **Scale:** Eleven zone steps below the bar, one lit amber at the current zone; an in-rail label reads `zone 4/10`, `over`, `empty`, or `no budget`. The zone is also spoken in the bar's `aria-label`, since the ramp itself is `aria-hidden`.
+- **Scale:** Eleven zone steps below the bar, one lit amber at the current zone; an in-rail label reads `zone 4/10`, `over`, `empty`, or `no budget`. The zone is also spoken in the bar's `aria-label`, since the ramp itself is `aria-hidden`. Below 720px the ramp is not drawn and the same label is printed as a line of text under the bar scale, so the reading survives the smaller screen.
 
 ### Ledger Line (Signature)
 - **Shape:** A six-column row: 86px category, note, dotted leader, right-aligned amount, 84px tag, edit action. Rows are separated by a 1px dashed Chalk Rule.
 - **Type:** Category and tag in Oswald 11px uppercase; note in Source Sans 3 15px capped at 34ch; amount in Oswald 19px tabular.
 - **State:** A regret-tagged row strikes its amount in rust-text. New rows animate in with a 550ms left-to-right chalk wipe.
 - **Note overflow:** Notes wrap rather than truncate, at any width. The note distinguishes one purchase from another, so it is never clipped to a single ellipsised line. Long unbroken strings break with `overflow-wrap: anywhere`.
-- **Edit target:** The desktop Edit action is at least 24×24px with 6px vertical padding, meeting the WCAG 2.2 target minimum without enlarging the visible type; phones use a 40×40 target.
+- **Edit target:** The Edit label stays 32×24px with its 6px vertical padding; a 44×44px tap area sits behind it, so the only way into a purchase is not also the smallest thing on the row. Phones keep the 40×40 target.
 - **Phone:** Reflows to two rows: note, leader, and amount on the first line; category, tag, and edit on the second, with no boxes around the tag.
 
 ### Regret Block (Signature)
@@ -384,7 +384,7 @@ The board is dark, tracked, and condensed, so the accessibility floor is explici
 - **Contrast:** Chalk, dim, placeholder, amber, rust, and rust-text all clear 4.5:1 on both board stops. Chalk Rule and Chalk Rule Strong are decorative only; every interactive boundary uses Chalk Control at 3.05–3.08:1.
 - **Focus:** Every control takes a 2px amber outline at a 3px offset through `:focus-visible`. Routed headings (`#today-h`, `#entry-h`, `#week-h`) are programmatically focusable with `tabindex="-1"` and keep a visible ring; only `<main>` suppresses the ring on a skip-link landing.
 - **Focus persistence:** Re-rendering never drops focus. The week strip restores focus to the selected day, and tag clicks restore focus to the same tag, using `data-day` and `data-tag-id`.
-- **Target size:** Phones use 40–48px targets; the desktop Edit action uses the WCAG 2.2 24×24px minimum.
+- **Target size:** Phones use 40–48px targets. Buttons reach 44px, the footer's text actions and the ledger Edit action carry a 44px tap area behind a smaller visible shape, and the chips and tags keep their documented 40px.
 - **Errors:** Invalid fields take `aria-invalid`, an `aria-describedby` link to a `role="alert"` sentence, and focus. The budget form matches the purchase form.
 - **Live regions:** `#status` carries polite announcements. `#hp-num` repaints only when the HP value or state actually changes, so tagging and day selection do not repeat the total.
 - **Charts:** The daily line is a single `role="img"` SVG whose `aria-label` states the period, purchase count, total, peak, allowance, and over-allowance days. The donut is `aria-hidden`; its legend lists every category with its swatch, amount, and share. The calendar is a table with a caption, `scope="col"` headers, and a full-sentence `sr-only` label in each cell, so the visual glyphs are never the only source of the date, amount, or over-allowance state.
@@ -406,7 +406,7 @@ The board is dark, tracked, and condensed, so the accessibility floor is explici
 - **Do** keep the projection line on Add current; the consequence of the purchase must be visible before it is saved.
 - **Do** let the amount lead the form: full width on phones, largest type in the block, digits grouped as they are typed.
 - **Do** treat category chips and regret tags as the same object: square outlined labels, one tap, no dropdown.
-- **Do** keep mobile tap targets at least 40px, the Month/Week control at least 44px tall, and desktop icon-sized actions at least 24×24px.
+- **Do** keep mobile tap targets at least 40px, primary buttons and the footer's text actions at least 44px, the Month/Week control at least 44px tall, and desktop icon-sized actions at least 24×24px with a 44px tap area behind them.
 - **Do** use Chalk Control for any border that is a control's only visible edge, and `--rust-text` for rust copy at 11–13px.
 - **Do** draw month charts by hand in SVG and table markup, give each category its fixed muted pigment in the donut and legend, and let the calendar carry per-date detail.
 - **Do** keep the charts below the today ledger and above the budget; they explain the month, they do not replace the bar.

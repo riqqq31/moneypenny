@@ -2,6 +2,7 @@
 
 .btn{
   background:none;border:1.5px solid var(--control-line);color:var(--chalk);cursor:pointer;
+  min-height:44px;
   font:500 11px/1 var(--display);letter-spacing:.2em;text-transform:uppercase;
   padding:14px 22px;transition:background .18s var(--ease),border-color .18s var(--ease),
     color .18s var(--ease),transform .12s var(--ease);

@@ -88,6 +88,10 @@ export function renderHP() {
 
   buildRamp(ramp, zone, zoneText);
 
+  /* The ramp is a desktop object; the phone keeps the same reading as a word. */
+  const zoneHost = $('hp-zone');
+  if (zoneHost) zoneHost.textContent = zoneText;
+
   const daysLeft = daysInMonth(mk) - dayOfMonth(today) + 1;
   const pace = hp > 0 ? Math.floor(hp / daysLeft) : 0;
   const potential = xpForMonth(hp, budget);

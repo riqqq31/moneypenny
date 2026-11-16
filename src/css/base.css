@@ -4,6 +4,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 
 html{-webkit-text-size-adjust:100%;scroll-padding-bottom:118px}
+/* Add has no fixed footer, so it reserves its own 52px instead of the board's. */
+html.page-add{scroll-padding-bottom:52px}
 
 body{
   min-height:100dvh;
