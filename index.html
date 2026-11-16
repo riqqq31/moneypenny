@@ -3,45 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Budget HP — daily budget as hit points</title>
-<meta name="description" content="Your daily budget is a life bar. Spend under it and bank XP; overspend and lose HP and your streak.">
+<title>Budget HP — monthly budget as hit points</title>
+<meta name="description" content="Your monthly budget is a life bar. Spend under it and bank XP when the month closes; overspend and lose HP and your streak.">
 <meta name="theme-color" content="#14150F">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%2314150F'/%3E%3Crect x='10' y='26' width='44' height='12' fill='%23F2F0E6'/%3E%3Crect x='10' y='26' width='22' height='12' fill='%23E8B33A'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 </head>
-<body data-view="today">
+<body data-view="board">
 <a class="skip" href="#main">Skip to content</a>
+<noscript><p class="noscript"><b>Budget HP needs JavaScript.</b> Enable it to see your budget, purchases, and streak.</p></noscript>
 
 <header class="top">
   <div class="brand">
     <span class="mark" data-app-name>Budget HP</span>
-    <span class="sub">daily budget as hit points</span>
+    <span class="sub">monthly budget as hit points</span>
   </div>
 
   <nav class="tabs" aria-label="Views">
-    <button type="button" data-view-btn="today" aria-pressed="true">Today</button>
+    <button type="button" data-view-btn="board" aria-pressed="true">Month</button>
     <button type="button" data-view-btn="week" aria-pressed="false">Week</button>
   </nav>
 
-  <div class="meta" aria-label="Progress">
+  <div class="meta" role="group" aria-label="Progress">
     <div class="stat"><span>Level</span><b id="stat-level">1</b></div>
     <div class="stat"><span>Streak</span><b id="stat-streak">0</b></div>
     <div class="stat stat-xp"><span>XP</span><b id="stat-xp">0</b><i id="stat-next">/100</i></div>
   </div>
 </header>
 
-<main id="main">
-  <section class="today" id="view-today" aria-labelledby="today-h">
+<main id="main" tabindex="-1">
+  <section class="board" id="view-board" aria-labelledby="today-h">
 
     <div class="hp">
       <div class="hp-head">
-        <h1 id="today-h">HP today</h1>
+        <h1 id="today-h" tabindex="-1">HP this month</h1>
         <span class="hp-date" id="hp-date"></span>
       </div>
-      <p class="hp-num" id="hp-num" aria-live="polite"><small>Rp</small><span>—</span></p>
+      <p class="hp-num" id="hp-num" aria-live="polite" aria-atomic="true"><small>Rp</small><span>—</span></p>
       <p class="hp-math" id="hp-math">Set this month’s budget to start.</p>
 
-      <div class="bar" id="bar" role="img" aria-label="Daily budget bar">
+      <div class="bar" id="bar" role="img" aria-label="Monthly budget bar">
         <div class="bar-fill" id="bar-fill"></div>
         <div class="bar-edge" id="bar-edge"></div>
       </div>
@@ -55,46 +56,60 @@
       <p class="hp-note" id="hp-note"></p>
     </div>
 
-    <form class="entry" id="entry" autocomplete="off" novalidate>
-      <h2 id="entry-h">Add a purchase</h2>
-      <div class="entry-grid">
-        <label class="field field-amount">
-          <span>Amount</span>
-          <span class="field-wrap"><i>Rp</i><input name="amount" inputmode="numeric" enterkeyhint="done" pattern="[0-9.]*" placeholder="25000" required></span>
-        </label>
-        <label class="field">
-          <span>Category</span>
-          <span class="field-wrap field-select"><select name="category"></select></span>
-        </label>
-        <label class="field field-note">
-          <span>Note</span>
-          <span class="field-wrap"><input name="note" placeholder="optional" maxlength="80"></span>
-        </label>
-        <label class="field field-date">
-          <span>Date</span>
-          <span class="field-wrap"><input type="date" name="date"></span>
-        </label>
-      </div>
-      <div class="entry-actions">
-        <button class="btn primary" type="submit" id="entry-submit">Add purchase</button>
-        <button class="btn quiet" type="button" id="entry-cancel" hidden>Cancel edit</button>
-        <button class="btn danger" type="button" id="entry-delete" hidden>Delete</button>
-        <p class="entry-error" id="entry-error" role="alert"></p>
-      </div>
-    </form>
+    <div class="board-cta">
+      <p class="board-today" id="board-today"></p>
+      <a class="btn primary board-add" id="board-add" href="#add">Add purchase</a>
+    </div>
 
     <h2 class="lines-h">Today’s lines <span id="lines-count"></span></h2>
     <ul class="lines" id="today-lines"></ul>
+
+    <section class="insights" id="insights" aria-labelledby="insights-h">
+      <h2 id="insights-h">This month <span id="insights-month"></span></h2>
+      <p class="insights-note" id="insights-note"></p>
+      <p class="insights-empty" id="insights-empty" hidden></p>
+
+      <div class="charts" id="charts">
+        <figure class="chart chart-line">
+          <figcaption>
+            <span class="chart-title">Daily spend</span>
+            <span class="chart-key">
+              <span class="k-spend">spend</span>
+              <span class="k-allow" id="line-allow">daily allowance</span>
+              <span class="k-over">over allowance</span>
+            </span>
+          </figcaption>
+          <div class="chart-body" id="chart-line"></div>
+        </figure>
+
+        <div class="chart-pair">
+          <figure class="chart chart-donut">
+            <figcaption><span class="chart-title">By category</span></figcaption>
+            <div class="donut-wrap">
+              <div class="chart-body" id="chart-donut"></div>
+              <p class="donut-center" id="donut-center" aria-hidden="true"></p>
+            </div>
+            <ul class="donut-legend" id="donut-legend" aria-label="Spending by category"></ul>
+          </figure>
+
+          <figure class="chart chart-cal">
+            <figcaption><span class="chart-title">Every day</span></figcaption>
+            <div class="chart-body cal-wrap" id="chart-calendar"></div>
+          </figure>
+        </div>
+      </div>
+    </section>
 
     <div class="block" id="budget-block">
       <h2>Monthly budget</h2>
       <form class="budget-form" id="budget-form" autocomplete="off">
         <label class="field field-amount">
           <span>Budget for <em id="budget-month">this month</em></span>
-          <span class="field-wrap"><i>Rp</i><input name="budget" inputmode="numeric" pattern="[0-9.]*" placeholder="3100000" required></span>
+          <span class="field-wrap"><i>Rp</i><input name="budget" inputmode="numeric" pattern="[0-9.]*" placeholder="3100000" aria-describedby="budget-error" required></span>
         </label>
         <button class="btn" type="submit">Save budget</button>
       </form>
+      <p class="entry-error" id="budget-error" role="alert"></p>
       <p class="fine" id="budget-meta"></p>
     </div>
 
@@ -110,16 +125,55 @@
 
   </section>
 
+  <section class="add" id="view-add" aria-labelledby="entry-h">
+    <a class="back" id="add-back" href="#board">Back to board</a>
+
+    <form class="entry" id="entry" autocomplete="off" novalidate>
+      <h1 class="entry-title" id="entry-h" tabindex="-1">Add a purchase</h1>
+      <div class="entry-grid">
+        <label class="field field-amount">
+          <span>Amount</span>
+          <span class="field-wrap"><i>Rp</i><input name="amount" inputmode="numeric" enterkeyhint="done" pattern="[0-9.]*" placeholder="e.g. 25000" aria-describedby="entry-error" required></span>
+        </label>
+
+        <div class="field field-cat">
+          <span id="cat-label">Category</span>
+          <div class="chips" id="cat-chips" role="radiogroup" aria-labelledby="cat-label"></div>
+        </div>
+
+        <label class="field field-note">
+          <span>Note <span class="opt">optional</span></span>
+          <span class="field-wrap"><input name="note" placeholder="warung, coffee" maxlength="80"></span>
+        </label>
+
+        <label class="field field-date">
+          <span>Date</span>
+          <span class="field-wrap"><input type="date" name="date" aria-describedby="entry-error"></span>
+        </label>
+      </div>
+
+      <p class="entry-after" id="entry-after"></p>
+      <p class="entry-error" id="entry-error" role="alert"></p>
+
+      <div class="entry-actions">
+        <button class="btn primary" type="submit" id="entry-submit">Add purchase</button>
+        <button class="btn quiet" type="button" id="entry-cancel" hidden>Cancel edit</button>
+        <button class="btn danger" type="button" id="entry-delete" hidden>Delete</button>
+      </div>
+    </form>
+  </section>
+
   <section class="week" id="view-week" aria-labelledby="week-h">
-    <h2 id="week-h">Last 7 days</h2>
+    <h1 id="week-h" class="week-title" tabindex="-1">Last 7 days</h1>
     <div class="strip" id="strip"></div>
-    <p class="fine week-note">XP only on days you opened the app. A missed day costs nothing.</p>
+    <p class="fine week-note">XP is banked when the month closes. Spend under budget to keep the streak alive.</p>
     <div class="day" id="day"></div>
     <div class="regret-block" id="regret"></div>
   </section>
 </main>
 
 <footer class="foot">
+  <a class="foot-btn foot-add" id="foot-add" href="#add">Add purchase</a>
   <button type="button" class="foot-btn" id="foot-export">Export JSON</button>
   <button type="button" class="foot-btn" id="foot-budget">Set budget</button>
   <span class="foot-meta" id="foot-meta"></span>

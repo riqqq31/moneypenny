@@ -1,12 +1,16 @@
 # Budget HP
 
-Your daily budget is a life bar. Spend under it and the leftover banks XP;
-overspend, and HP (and the streak) take the hit.
+Your monthly budget is a life bar. Spend under it and the leftover banks XP when
+the month closes; overspend, and HP (and the streak) take the hit.
 
 - Enter a purchase in seconds on your phone at the counter; tag purchases
   Worth / Meh / Regret in the weekly review on desktop.
-- Daily budget = monthly budget ÷ days in that month. XP is only awarded on
-  days you open the app — a missed day costs nothing.
+- The Board is the landing view: HP, the bar, and today's lines, then three
+  this-month charts (daily line, category donut, spend calendar) and the budget.
+  Add purchase opens a focused entry view (`#add`) with the amount already focused;
+  the footer keeps it one tap away, and `#week` holds the trailing seven days.
+- HP = this month's budget − everything spent this month. XP is banked when a
+  month closes, so a missed day costs nothing.
 - No accounts, no network, no tracking. Data stays in this browser's
   `localStorage`; Export JSON is the backup and the way to move devices
   (Import restores it).
