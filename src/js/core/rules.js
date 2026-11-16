@@ -83,3 +83,16 @@ export function tick(db) {
 export function dayOfMonthLeft(mk, day = todayKey()) {
   return daysInMonth(mk) - dayOfMonth(day) + 1;
 }
+
+/* The most recent month holding a purchase, ignoring `exclude`. The current
+   month's charts are empty when the ledger lives in another month, and saying
+   which month that is turns an empty chart into an explanation. */
+export function latestSpendMonth(db, exclude = null) {
+  let latest = null;
+  for (let i = 0; i < db.transactions.length; i++) {
+    const mk = db.transactions[i].date.slice(0, 7);
+    if (mk === exclude) continue;
+    if (latest === null || mk > latest) latest = mk;
+  }
+  return latest;
+}

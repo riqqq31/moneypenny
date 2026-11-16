@@ -10,7 +10,7 @@ import {
   todayKey
 } from '../core/date.js';
 import { fmt, fmtShort } from '../core/format.js';
-import { dailyBudget } from '../core/rules.js';
+import { dailyBudget, latestSpendMonth } from '../core/rules.js';
 import { db } from '../core/store.js';
 import { $ } from '../ui/dom.js';
 import { renderCalendar } from './charts/calendar.js';
@@ -75,27 +75,32 @@ export function renderInsights() {
   const charts = $('charts');
   const empty = $('insights-empty');
   const note = $('insights-note');
+  const allowKey = $('line-allow');
 
   $('insights-month').textContent = monthLabel(mk);
 
-  if (!data.total) {
-    charts.hidden = true;
+  /* The charts stay on screen even in an empty month: their axes show what
+     will be filled, so the section never looks like a missing feature. */
+  charts.hidden = false;
+
+  if (data.total) {
+    empty.hidden = true;
+    note.innerHTML = summary(mk, data);
+  } else {
     empty.hidden = false;
+    empty.innerHTML = emptyState(mk, data, db);
     note.innerHTML = '';
-    empty.innerHTML =
-      data.allow === null
-        ? 'Nothing spent in ' +
-          monthLabel(mk) +
-          ' yet. <b>Set a budget</b> and add purchases to fill these charts.'
-        : 'Nothing spent in ' +
-          monthLabel(mk) +
-          ' yet. <b>Add a purchase</b> and the charts fill in.';
-    return;
   }
 
-  charts.hidden = false;
-  empty.hidden = true;
+  allowKey.hidden = data.allow === null;
+  if (data.allow !== null) allowKey.textContent = 'allowance ' + fmtShort(data.allow);
 
+  renderLine(lineHost, mk, data, today);
+  renderDonut($('chart-donut'), $('donut-legend'), $('donut-center'), data);
+  renderCalendar($('chart-calendar'), mk, data);
+}
+
+function summary(mk, data) {
   const bits = [
     '<b>' + data.count + '</b> purchase' + (data.count === 1 ? '' : 's'),
     '<b>' + fmt(data.total) + '</b> spent'
@@ -113,13 +118,25 @@ export function renderInsights() {
     );
   }
   if (data.allow === null) bits.push('no budget, so no allowance');
-  note.innerHTML = bits.join(' · ');
+  return bits.join(' · ');
+}
 
-  const allowKey = $('line-allow');
-  allowKey.hidden = data.allow === null;
-  if (data.allow !== null) allowKey.textContent = 'allowance ' + fmtShort(data.allow);
-
-  renderLine(lineHost, mk, data, today);
-  renderDonut($('chart-donut'), $('donut-legend'), $('donut-center'), data);
-  renderCalendar($('chart-calendar'), mk, data);
+/* An empty month is either unstarted or being looked at in the wrong month;
+   naming the month that does have purchases answers "where did my data go?". */
+function emptyState(mk, data, ledger) {
+  const other = latestSpendMonth(ledger, mk);
+  if (other) {
+    return (
+      'Nothing spent in ' +
+      monthLabel(mk) +
+      ' yet. Your latest purchases are in <b>' +
+      monthLabel(other) +
+      '</b> — these charts show one month at a time.'
+    );
+  }
+  return data.allow === null
+    ? 'Nothing spent in ' +
+        monthLabel(mk) +
+        ' yet. <b>Set a budget</b> and add purchases to fill these charts.'
+    : 'Nothing spent in ' + monthLabel(mk) + ' yet. <b>Add a purchase</b> and the charts fill in.';
 }

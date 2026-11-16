@@ -87,7 +87,8 @@ Confirmed rules:
   with a fixed muted pigment per category plus an amount/share legend, and a
   Monday-first calendar with each date's spend,
   over-allowance mark, and today marker. Charts cover the current month only, are static,
-  and collapse to one message when nothing has been spent. They do not replace the HP bar,
+  and stay visible with empty axes plus a one-line note when nothing has been spent in that
+  month (naming the latest month that does have purchases). They do not replace the HP bar,
   zone ramp, week strip, or regret ramp.
 
 Explicit constraints:

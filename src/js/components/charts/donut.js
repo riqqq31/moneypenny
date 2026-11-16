@@ -62,7 +62,9 @@ export function renderDonut(host, legend, center, data) {
     offset += len;
   });
 
-  center.innerHTML = '<small>Rp spent</small><b>' + fmt(data.total) + '</b>';
+  center.innerHTML = data.total
+    ? '<small>Rp spent</small><b>' + fmt(data.total) + '</b>'
+    : '<small>Rp spent</small><b>—</b>';
 
   rows.forEach((row) => {
     const li = el('li');

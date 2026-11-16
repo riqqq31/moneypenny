@@ -6,6 +6,7 @@ import {
   budgetFor,
   dailyBudget,
   hpThisMonth,
+  latestSpendMonth,
   levelInfo,
   spendInMonth,
   spendOn,
@@ -184,4 +185,13 @@ test('a fresh ledger treats last month as already processed', () => {
 
   assert.equal(db.game.lastProcessedMonth, shiftMonth(monthKey(todayKey()), -1));
   assert.equal(db.game.xp, 0);
+});
+
+test('latestSpendMonth finds the newest month with purchases', () => {
+  const db = ledger();
+  assert.equal(latestSpendMonth(db, '2026-11'), '2026-10');
+  assert.equal(latestSpendMonth(db, null), '2026-11');
+  assert.equal(latestSpendMonth(db, '2026-10'), '2026-11');
+  assert.equal(latestSpendMonth(fresh(), null), null);
+  assert.equal(latestSpendMonth(fresh(), '2026-11'), null);
 });
