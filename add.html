@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Add a purchase — Budget HP</title>
+<meta name="description" content="Log a purchase in seconds. Amount, category, optional note and date; the form projects the HP left before you save.">
+<meta name="theme-color" content="#14150F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<noscript><p class="noscript"><b>Budget HP needs JavaScript.</b> Enable it to add a purchase.</p></noscript>
+
+<!-- include:header -->
+
+<main id="main" tabindex="-1">
+  <section class="entry-view" aria-labelledby="entry-h">
+    <a class="back" id="add-back" href="index.html">Back to board</a>
+
+    <form class="entry" id="entry" autocomplete="off" novalidate>
+      <h1 class="entry-title" id="entry-h" tabindex="-1">Add a purchase</h1>
+      <div class="entry-grid">
+        <label class="field field-amount">
+          <span>Amount</span>
+          <span class="field-wrap"><i>Rp</i><input name="amount" inputmode="numeric" enterkeyhint="done" pattern="[0-9.]*" placeholder="e.g. 25000" aria-describedby="entry-error" required></span>
+        </label>
+
+        <div class="field field-cat">
+          <span id="cat-label">Category</span>
+          <div class="chips" id="cat-chips" role="radiogroup" aria-labelledby="cat-label"></div>
+        </div>
+
+        <label class="field field-note">
+          <span>Note <span class="opt">optional</span></span>
+          <span class="field-wrap"><input name="note" placeholder="warung, coffee" maxlength="80"></span>
+        </label>
+
+        <label class="field field-date">
+          <span>Date</span>
+          <span class="field-wrap"><input type="date" name="date" aria-describedby="entry-error"></span>
+        </label>
+      </div>
+
+      <p class="entry-after" id="entry-after"></p>
+      <p class="entry-error" id="entry-error" role="alert"></p>
+
+      <div class="entry-actions">
+        <button class="btn primary" type="submit" id="entry-submit">Add purchase</button>
+        <button class="btn quiet" type="button" id="entry-cancel" hidden>Cancel edit</button>
+        <button class="btn danger" type="button" id="entry-delete" hidden>Delete</button>
+      </div>
+    </form>
+  </section>
+
+  <aside class="rail" aria-labelledby="week-h">
+    <h2 class="week-title" id="week-h">Last 7 days</h2>
+    <!-- include:week-rail -->
+  </aside>
+</main>
+
+<p class="sr-only" id="status" aria-live="polite"></p>
+<script type="module" src="/src/js/pages/add.js"></script>
+</body>
+</html>

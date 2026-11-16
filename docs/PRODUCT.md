@@ -8,9 +8,10 @@ web
 
 ## Stack
 
-Static HTML, CSS, and vanilla JavaScript. No framework, no backend, no third-party
-libraries, no build step. Three files: `index.html`, `style.css`, `app.js`.
-Deploys to any static host (Vercel, Netlify, GitHub Pages).
+Static HTML, CSS, and vanilla JavaScript modules built with Vite. No framework, no
+backend, no runtime third-party libraries. Three pages — `index.html` (board),
+`add.html`, `week.html` — with shared components under `src/`. Deploys to any static
+host (Vercel, Netlify, GitHub Pages).
 
 ## Users
 
@@ -91,7 +92,7 @@ Confirmed rules:
 
 Explicit constraints:
 
-- Exactly three files. No service worker, no manifest, not installable as a PWA.
+- Three pages sharing one component library. No service worker, no manifest, not installable as a PWA.
 - No charts library, no icon library, no CSS framework, no web fonts from a CDN. The
   month charts are hand-built SVG, HTML tables, and the existing chalk styles.
 - No analytics, no network calls, no accounts.

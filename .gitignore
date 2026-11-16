@@ -1,5 +1,15 @@
+# Dependencies and build output
+node_modules/
+dist/
+
 # Design-review workspace (not part of the runtime)
 .impeccable/
+
+# Local agent workspace
+.opencode/
+
+# Browser smoke output
+tooling/smoke/output/
 
 # OS junk
 Thumbs.db

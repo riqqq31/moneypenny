@@ -1,0 +1,16 @@
+/* Budget HP — buttons */
+
+.btn{
+  background:none;border:1.5px solid var(--control-line);color:var(--chalk);cursor:pointer;
+  font:500 11px/1 var(--display);letter-spacing:.2em;text-transform:uppercase;
+  padding:14px 22px;transition:background .18s var(--ease),border-color .18s var(--ease),
+    color .18s var(--ease),transform .12s var(--ease);
+}
+.btn:hover{background:rgba(242,240,230,.08);border-color:var(--chalk)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{border-color:var(--chalk);color:var(--chalk);background:rgba(242,240,230,.05)}
+.btn.primary:hover{background:rgba(242,240,230,.14);border-color:var(--chalk);color:var(--chalk)}
+.btn.quiet{border-color:var(--control-line);color:var(--dim)}
+.btn.quiet:hover{color:var(--chalk);border-color:var(--control-line-strong)}
+.btn.danger{border-color:rgba(224,90,68,.5);color:var(--rust-text)}
+.btn.danger:hover{background:rgba(224,90,68,.12);border-color:var(--rust)}

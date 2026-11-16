@@ -1,0 +1,83 @@
+/* Budget HP — insight charts */
+
+/* ---------------- insights ---------------- */
+
+.insights{position:relative;margin-top:46px;padding-top:22px}
+.insights::before{content:"";position:absolute;top:0;left:0;right:8%;border-top:1px solid var(--rule)}
+.insights-note{margin-top:8px;font:400 12px/1.65 var(--text);color:var(--dim)}
+.insights-note b{color:var(--chalk);font-weight:600;font-variant-numeric:tabular-nums}
+.insights-note .bad{color:var(--rust-text)}
+.insights-empty{margin-top:12px;font:400 14px/1.55 var(--text);color:var(--dim);max-width:52ch}
+.insights-empty b{color:var(--chalk);font-weight:600}
+.insights-empty[hidden],.charts[hidden]{display:none}
+
+.charts{display:grid;gap:30px;margin-top:20px}
+.chart{min-width:0}
+.chart figcaption{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.chart-title{font:500 10px/1.4 var(--display);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+.chart-key{display:flex;align-items:center;gap:13px;margin-left:auto;flex-wrap:wrap;
+  font:400 10px/1.3 var(--text);color:var(--dim)}
+.chart-key>span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}
+.chart-key>span::before{content:"";display:block;width:14px;border-top:2px solid var(--chalk)}
+.chart-key .k-allow::before{border-top:2px dashed rgba(242,240,230,.46)}
+.chart-key .k-over::before{width:6px;height:6px;border:0;background:var(--rust);
+  border-radius:50%}
+.chart-key [hidden]{display:none}
+
+.chart-body{position:relative;min-width:0}
+.chart-line .chart-body{margin-top:12px}
+.chart-line svg{display:block;width:100%;height:auto}
+.chart-line svg text{font:500 9px/1 var(--display);letter-spacing:.1em;fill:var(--dim)}
+.axis-line{stroke:var(--rule-strong);stroke-width:1.5}
+.allow-line{fill:none;stroke:rgba(242,240,230,.42);stroke-width:1.5;stroke-dasharray:4 5}
+.spend-line{fill:none;stroke:var(--chalk);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.dot-over{fill:var(--rust)}
+.dot-today{fill:var(--amber)}
+
+.chart-pair{display:grid;grid-template-columns:minmax(0,1fr);gap:28px;min-width:0}
+.chart-donut{max-width:320px}
+.donut-wrap{position:relative;max-width:252px;margin:14px auto 0}
+.chart-donut svg{display:block;width:100%;height:auto}
+.donut-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;pointer-events:none}
+.donut-center small{font:500 9px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;
+  color:var(--dim)}
+.donut-center b{display:block;margin-top:4px;font:600 19px/1.05 var(--display);letter-spacing:.01em;
+  font-variant-numeric:tabular-nums}
+
+.donut-legend{list-style:none;margin-top:16px}
+.donut-legend li{display:grid;grid-template-columns:8px minmax(0,1fr) auto auto;align-items:baseline;
+  gap:9px;padding:7px 0;border-bottom:1px dashed var(--rule)}
+.donut-legend .sw{width:8px;height:8px;align-self:center}
+.donut-legend .dl{min-width:0;font:400 13px/1.4 var(--text);color:var(--chalk)}
+.donut-legend .dv{font:500 12px/1 var(--display);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.donut-legend .dp{min-width:30px;text-align:right;font:400 11px/1 var(--text);color:var(--dim);
+  font-variant-numeric:tabular-nums}
+.donut-legend .cat-food{background:#A8B98D}
+.donut-legend .cat-transport{background:#83A9BE}
+.donut-legend .cat-shopping{background:#C98E7E}
+.donut-legend .cat-fun{background:#B79BC6}
+.donut-legend .cat-bills{background:#CFB06B}
+.donut-legend .cat-other{background:#9DA096}
+
+.cal-wrap{margin-top:12px}
+.cal{width:100%;border-collapse:collapse;table-layout:fixed}
+.cal th{padding:0 0 6px;text-align:center;font:500 9px/1.4 var(--display);letter-spacing:.12em;
+  text-transform:uppercase;color:var(--dim)}
+.cal td{position:relative;height:46px;padding:6px 2px 9px;text-align:center;vertical-align:top;
+  border-top:1px dashed var(--rule)}
+.cal .cal-d{display:block;font:500 10px/1.2 var(--display);letter-spacing:.04em;color:var(--dim);
+  font-variant-numeric:tabular-nums}
+.cal .cal-amt{display:block;margin-top:2px;font:500 10px/1.2 var(--display);letter-spacing:0;
+  color:var(--chalk);font-variant-numeric:tabular-nums;white-space:nowrap}
+.cal .is-zero .cal-amt{color:rgba(242,240,230,.26)}
+.cal .is-over .cal-amt{color:var(--rust-text)}
+.cal .is-over .cal-d{color:var(--rust-text)}
+.cal .is-today .cal-d{color:var(--amber)}
+.cal td.is-today{border-top:2px solid var(--amber);padding-top:5px}
+.cal .is-future .cal-d{color:rgba(242,240,230,.24)}
+.cal .cal-bar{position:absolute;left:4px;right:4px;bottom:3px;height:2px;
+  background:rgba(242,240,230,.13)}
+.cal .cal-bar i{display:block;height:100%;background:rgba(242,240,230,.55)}
+.cal .is-over .cal-bar i{background:var(--rust)}

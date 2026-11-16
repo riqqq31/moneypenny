@@ -419,7 +419,7 @@ The board is dark, tracked, and condensed, so the accessibility floor is explici
 - **Don't** use icon libraries, glyph icons, or emoji in the interface; the native date-picker glyph is the only exception.
 - **Don't** use Chalk Rule as a control border, or set small text in `--rust` on a rust-tinted fill.
 - **Don't** soften HP, XP, level, streak, worth, or regret into generic finance language.
-- **Don't** add a second HTML document for Add; three files and a hash route are the contract.
+- **Don't** merge the three pages back into a hash router; the board, add and week documents are the navigation contract.
 - **Don't** set a number in Source Sans 3 or a sentence in Oswald.
 - **Don't** fill the bar left-to-right as money is spent; the visible chalk is what is left.
 - **Don't** show a partial over-budget fill; the hatch must read as a full, failed bar.

@@ -1,0 +1,18 @@
+/* Budget HP — regret panel */
+
+/* ---------------- regret ---------------- */
+
+.regret-block{position:relative;margin-top:44px;padding-top:24px}
+.regret-block::before{content:"";position:absolute;top:0;left:0;right:8%;border-top:1px solid var(--rule)}
+.regret-top{display:flex;align-items:flex-end;gap:14px;margin-top:12px}
+.regret-num{font:600 62px/.86 var(--display);letter-spacing:-.02em;color:var(--rust);
+            font-variant-numeric:tabular-nums}
+.regret-cap{font:400 12px/1.45 var(--text);color:var(--dim);padding-bottom:5px;max-width:20ch}
+.regret-cap b{color:var(--chalk);font-weight:600}
+.ramp-cats{margin-top:20px}
+.ramp-cats .rc{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px;
+               padding:10px 0 8px;border-bottom:1.5px solid var(--rust)}
+.ramp-cats .rc b{font-family:var(--display);font-weight:600;font-size:var(--sz,20px);
+                 line-height:1.1;letter-spacing:.01em;font-variant-numeric:tabular-nums}
+.ramp-cats .rc span{font:500 11px/1.4 var(--display);letter-spacing:.14em;
+                    text-transform:uppercase;color:var(--dim)}

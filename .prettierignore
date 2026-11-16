@@ -1,0 +1,13 @@
+# Build output and dependencies
+dist/
+node_modules/
+
+# The stylesheet is hand-tuned as one rule per line; formatting it would bury
+# the layout decisions in reflow noise.
+*.css
+*.html
+*.md
+
+# Workspace
+.impeccable/
+.opencode/

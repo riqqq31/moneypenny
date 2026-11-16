@@ -1,0 +1,74 @@
+/* Budget HP — HP meter */
+
+/* ---------------- HP ---------------- */
+
+.hp{padding-bottom:6px}
+.hp-head{display:flex;align-items:baseline;gap:16px}
+.hp-head h1{font:500 11px/1.4 var(--display);letter-spacing:.26em;text-transform:uppercase;
+            color:var(--dim)}
+.hp-date{margin-left:auto;font:500 11px/1.4 var(--display);letter-spacing:.2em;
+         text-transform:uppercase;color:var(--dim)}
+
+.hp-num{
+  font:600 var(--hp-size,clamp(72px,8.4vw,118px))/.9 var(--display);
+  letter-spacing:-.02em;font-variant-numeric:tabular-nums;
+  margin:10px 0 4px;white-space:nowrap;
+}
+.hp-num small{font:300 clamp(14px,.3em,40px)/1 var(--display);letter-spacing:.02em;color:var(--dim);
+              vertical-align:.42em;margin-right:.28em}
+.hp-num.neg{color:var(--rust)}
+.hp-num.unset span{font-size:.42em;letter-spacing:.04em;color:var(--dim);vertical-align:.12em}
+
+.hp-math{font:400 14px/1.5 var(--text);color:var(--dim)}
+.hp-math b{font-weight:600;color:var(--chalk);font-variant-numeric:tabular-nums}
+.hp-math s{color:var(--rust-text);text-decoration-thickness:1.5px;text-underline-offset:2px;
+           font-variant-numeric:tabular-nums}
+.hp-math .over{color:var(--rust-text)}
+
+.bar{position:relative;height:30px;margin-top:20px;overflow:hidden;
+     background-image:radial-gradient(circle at 1px 50%,rgba(242,240,230,.13) 1px,transparent 1.3px);background-size:10px 100%;
+     border-top:1.5px solid var(--rule-strong);border-bottom:1.5px solid var(--rule-strong)}
+.bar-fill{position:absolute;inset:0 auto 0 0;width:0;background-color:var(--chalk);
+          background-image:
+            radial-gradient(130% 150% at 12% 40%,rgba(242,240,230,.26),transparent 62%),
+            radial-gradient(90% 130% at 78% 62%,rgba(20,21,15,.11),transparent 66%);
+          transition:width .55s var(--ease)}
+.bar-edge{position:absolute;top:-7px;bottom:-7px;left:0;width:30px;margin-left:-15px;color:var(--amber);
+          background:radial-gradient(closest-side,rgba(242,240,230,.22),transparent);
+          transition:left .55s var(--ease);pointer-events:none}
+.bar-edge::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;margin-left:-1px;
+                 background:currentColor}
+.bar.over .bar-fill{background-color:var(--rust);
+                    background-image:
+                      radial-gradient(130% 150% at 18% 45%,rgba(242,240,230,.18),transparent 60%),
+                      radial-gradient(90% 130% at 80% 55%,rgba(20,21,15,.22),transparent 65%)}
+.bar.over .bar-edge{color:var(--rust);background:radial-gradient(closest-side,rgba(224,90,68,.34),transparent)}
+
+.bar.over{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10'%3E%3Cpath d='M-2 8L8-2M2 12L12 2' stroke='%23E05A44' stroke-opacity='.34' stroke-width='2'/%3E%3C/svg%3E");
+          border-top-color:rgba(224,90,68,.55);border-bottom-color:rgba(224,90,68,.55)}
+.bar.over .bar-fill{display:none}
+.bar.over .bar-edge{display:none}
+.bar.is-unset .bar-edge{display:none}
+
+.bar-scale{display:flex;justify-content:space-between;gap:18px;margin-top:7px;
+           font:500 11px/1.4 var(--display);letter-spacing:.14em;
+           text-transform:uppercase;color:var(--dim)}
+.bar-scale span:nth-child(2){margin-left:auto;text-align:right;font-variant-numeric:tabular-nums}
+.bar-scale .bad{color:var(--rust-text)}
+
+.ramp{display:flex;align-items:flex-end;gap:3px;height:32px;margin-top:18px}
+.ramp i{display:block;width:6px;background:rgba(242,240,230,.16);
+        transition:background .3s var(--ease)}
+.ramp i.on{background:var(--amber)}
+.ramp i:nth-child(1){height:6px}.ramp i:nth-child(2){height:8px}
+.ramp i:nth-child(3){height:10px}.ramp i:nth-child(4){height:12px}
+.ramp i:nth-child(5){height:15px}.ramp i:nth-child(6){height:18px}
+.ramp i:nth-child(7){height:21px}.ramp i:nth-child(8){height:24px}
+.ramp i:nth-child(9){height:27px}.ramp i:nth-child(10){height:30px}
+.ramp i:nth-child(11){height:33px}
+.ramp span{margin-left:8px;align-self:flex-end;font:500 11px/1.4 var(--display);
+           letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+
+.hp-note{margin-top:10px;font:400 13px/1.5 var(--text);color:var(--dim)}
+.hp-note b{color:var(--amber);font-weight:600;font-variant-numeric:tabular-nums}
+.hp-note .bad{color:var(--rust-text)}

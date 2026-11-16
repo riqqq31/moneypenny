@@ -1,0 +1,24 @@
+/* Budget HP — persistent footer */
+
+/* ---------------- persistent footer ---------------- */
+
+.foot{
+  position:fixed;left:0;right:0;bottom:0;z-index:6;
+  display:flex;align-items:center;gap:26px;
+  padding:12px 40px calc(12px + env(safe-area-inset-bottom));
+  background:var(--board);border-top:1px solid var(--rule);
+}
+.foot-btn{
+  background:none;border:0;cursor:pointer;color:var(--chalk);
+  font:500 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;
+  padding:7px 0;border-bottom:1px solid transparent;
+  transition:border-color .18s var(--ease),color .18s var(--ease);
+}
+.foot-btn:hover{border-bottom-color:var(--chalk)}
+.foot-add{border:1.5px solid var(--chalk);background:rgba(242,240,230,.05);padding:10px 16px;
+          min-height:40px;display:inline-flex;align-items:center}
+.foot-add:hover{background:rgba(242,240,230,.14);border-bottom-color:var(--chalk)}
+.foot-meta{margin-left:auto;font:500 11px/1 var(--display);letter-spacing:.16em;
+           text-transform:uppercase;color:var(--dim);white-space:nowrap}
+.foot::before{content:"";position:absolute;left:0;right:0;top:-22px;height:22px;pointer-events:none;
+              background:linear-gradient(180deg,rgba(20,21,15,0),var(--board))}

@@ -1,0 +1,30 @@
+/* Budget HP — reset and page base */
+
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+html{-webkit-text-size-adjust:100%;scroll-padding-bottom:118px}
+
+body{
+  min-height:100dvh;
+  background-color:var(--board);
+  background-image:
+    radial-gradient(120% 90% at 18% 0%,var(--board-hi) 0%,var(--board) 58%),
+    radial-gradient(60% 40% at 88% 96%,var(--board-warm) 0%,transparent 70%);
+  background-attachment:fixed;
+  color:var(--chalk);
+  font:400 16px/1.5 var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+::selection{background:var(--amber);color:var(--board)}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:0}
+input,select,button,textarea{caret-color:var(--amber)}
+*{scrollbar-width:thin;scrollbar-color:rgba(242,240,230,.22) transparent}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:rgba(242,240,230,.20);border-radius:0}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:calc(12px + env(safe-area-inset-top));z-index:9;background:var(--chalk);color:var(--board);
+      padding:10px 16px;font:600 13px/1 var(--text)}
+.skip:focus{left:16px}

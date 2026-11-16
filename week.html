@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Last 7 days — Budget HP</title>
+<meta name="description" content="The trailing seven days of spending, with Worth / Meh / Regret tags and the regret rate for the week.">
+<meta name="theme-color" content="#14150F">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/src/css/main.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<noscript><p class="noscript"><b>Budget HP needs JavaScript.</b> Enable it to review the week.</p></noscript>
+
+<!-- include:header -->
+
+<main id="main" tabindex="-1">
+  <section class="week-view" aria-labelledby="week-h">
+    <a class="back" href="index.html">Back to board</a>
+    <h1 class="week-title" id="week-h" tabindex="-1">Last 7 days</h1>
+    <!-- include:week-rail -->
+  </section>
+</main>
+
+<!-- include:footer -->
+
+<p class="sr-only" id="status" aria-live="polite"></p>
+<script type="module" src="/src/js/pages/week.js"></script>
+</body>
+</html>

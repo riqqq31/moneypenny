@@ -1,0 +1,101 @@
+/* Budget HP — purchase form */
+
+/* ---------------- add view ---------------- */
+
+.back{display:inline-flex;align-items:center;min-height:44px;color:var(--dim);text-decoration:none;
+      font:500 11px/1 var(--display);letter-spacing:.18em;text-transform:uppercase;
+      border-bottom:1px solid var(--control-line);transition:color .18s var(--ease),border-color .18s var(--ease)}
+.back:hover{color:var(--chalk);border-bottom-color:var(--chalk)}
+.entry-view{padding-top:2px}
+
+/* ---------------- entry ---------------- */
+
+.entry{margin-top:8px}
+.entry-title{font:500 12px/1.4 var(--display);letter-spacing:.22em;text-transform:uppercase;
+             color:var(--dim)}
+h2{font:500 11px/1.4 var(--display);letter-spacing:.24em;text-transform:uppercase;
+   color:var(--dim);display:flex;align-items:baseline;gap:12px}
+.week-title{font:500 11px/1.4 var(--display);letter-spacing:.24em;text-transform:uppercase;
+            color:var(--dim)}
+h2 span{font:400 11px/1 var(--text);letter-spacing:.04em;text-transform:none;color:var(--dim)}
+
+.entry-grid{
+  display:grid;gap:16px 14px;margin-top:14px;
+  grid-template-columns:1fr 1fr;
+  grid-template-areas:
+    "amount amount"
+    "cat    cat"
+    "note   date";
+}
+.field-amount{grid-area:amount}
+.field-cat{grid-area:cat}
+.field-note{grid-area:note}
+.field-date{grid-area:date}
+.field{display:flex;flex-direction:column;gap:4px;min-width:0}
+.field>span:first-child{font:500 11px/1.3 var(--display);letter-spacing:.16em;
+                        text-transform:uppercase;color:var(--dim)}
+.field>span:first-child em{font-style:normal;color:var(--chalk);letter-spacing:.1em}
+.field .opt{font:400 11px/1 var(--text);letter-spacing:.06em;text-transform:none;color:var(--dim)}
+
+@media (min-width:720px){
+  .entry-grid{
+    grid-template-columns:1.1fr 1.7fr .9fr;gap:16px 20px;align-items:end;
+    grid-template-areas:
+      "amount note date"
+      "cat    cat  cat";
+  }
+}
+
+.field-wrap{display:flex;align-items:baseline;gap:8px;border-bottom:1.5px solid var(--control-line);
+            transition:border-color .2s var(--ease)}
+.field-wrap:focus-within{border-bottom-color:var(--chalk)}
+.field-wrap i{font:500 12px/1 var(--display);letter-spacing:.06em;color:var(--dim);
+              font-style:normal;flex:none;transition:color .2s var(--ease)}
+.field-wrap:focus-within i{color:var(--chalk)}
+
+input{
+  width:100%;min-width:0;min-height:40px;background:none;border:0;color:var(--chalk);
+  font:400 16px/1.4 var(--text);padding:8px 0;
+}
+.field-amount input{font:500 clamp(28px,8vw,36px)/1.25 var(--display);
+                    letter-spacing:0;font-variant-numeric:tabular-nums}
+.field-amount .field-wrap i{font-size:15px;letter-spacing:.04em}
+@media (min-width:720px){
+  .field-amount input{font-size:26px}
+}
+input::placeholder{color:var(--placeholder);font-weight:400}
+input:focus{outline:none}
+input[aria-invalid="true"]{color:var(--rust-text)}
+input[type="date"]{font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:.02em;
+                   font-variant-numeric:tabular-nums}
+input[type="date"]::-webkit-calendar-picker-indicator{cursor:pointer;opacity:.7}
+
+/* Category chips: native radios, drawn as outlined board labels. */
+.chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:2px}
+.chips input{
+  position:absolute;width:1px;height:1px;min-height:0;padding:0;margin:-1px;
+  overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0;
+}
+.chips label{
+  display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 11px;
+  border:1px solid var(--control-line);color:var(--dim);cursor:pointer;
+  font:500 11px/1 var(--display);letter-spacing:.12em;text-transform:uppercase;
+  transition:color .16s var(--ease),border-color .16s var(--ease),background .16s var(--ease);
+}
+.chips label:hover{color:var(--chalk);border-color:var(--control-line-strong)}
+.chips input:checked + label{color:var(--chalk);border-color:var(--chalk);background:rgba(242,240,230,.08)}
+.chips input:focus-visible + label{outline:2px solid var(--amber);outline-offset:3px}
+
+@media (min-width:720px){
+  .chips{display:flex;flex-wrap:wrap}
+}
+
+.entry-after{margin-top:14px;font:400 13px/1.5 var(--text);color:var(--dim);min-height:1.5em}
+.entry-after b{color:var(--chalk);font-weight:600;font-variant-numeric:tabular-nums}
+.entry-after.over{color:var(--rust-text)}
+.entry-actions{display:flex;align-items:center;gap:12px;margin-top:18px;flex-wrap:wrap}
+.entry-error{margin-top:10px;font:400 13px/1.4 var(--text);color:var(--rust-text)}
+.entry-error:empty{display:none}
+
+.entry.is-editing{border-left:2px solid var(--chalk);padding-left:14px}
+.entry.is-editing .entry-title{color:var(--chalk)}

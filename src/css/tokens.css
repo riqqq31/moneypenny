@@ -1,0 +1,25 @@
+/* Budget HP — design tokens */
+
+/* ============================================================
+   Budget HP — one continuous chalkboard
+   ============================================================ */
+
+:root{
+  color-scheme:dark;
+  --board:#14150F;
+  --board-hi:#1E2016;
+  --board-warm:#1B1D14;
+  --chalk:#F2F0E6;
+  --dim:#A8A69B;
+  --placeholder:#8F8D82;
+  --rule:rgba(242,240,230,.16);
+  --rule-strong:rgba(242,240,230,.30);
+  --control-line:rgba(242,240,230,.36);
+  --control-line-strong:rgba(242,240,230,.55);
+  --amber:#E8B33A;
+  --rust:#E05A44;
+  --rust-text:#E46450;
+  --display:Oswald,"Arial Narrow","Helvetica Neue",sans-serif;
+  --text:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
